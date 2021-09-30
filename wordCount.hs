@@ -5,9 +5,9 @@ main :: IO ()
 main = do
   contents <- getContents
   -- TODO: We could fold over the contents and gather everything in one go.
-  putStrLn $ show $ lineCount contents
-  putStrLn $ show $ wordCount contents
-  putStrLn $ show $ charCount contents
+  print (lineCount contents)
+  print (wordCount contents)
+  print (charCount contents)
 
 lineCount :: String -> Int
 lineCount = length . lines
