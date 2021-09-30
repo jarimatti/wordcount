@@ -1,11 +1,23 @@
-import Distribution.Compat.Parsing (count)
+import System.Environment ( getArgs )
+import System.IO
+    ( hClose, openFile, stdin, hGetContents, Handle, IOMode(ReadMode) )
+
+
 -- Display line, word, and character counts read from stdin.
 --
 -- This is a toy utility to get feet wet with Haskell.
 main :: IO ()
 main = do
-  contents <- getContents
+  args <- getArgs
+  handle <- filehandle args
+  contents <- hGetContents handle
   print $ countAll contents
+  hClose handle
+
+-- Return the input handle to read.
+filehandle :: [FilePath] -> IO Handle
+filehandle [] = return stdin
+filehandle (filename : _) = openFile filename ReadMode
 
 lineCount :: String -> Int
 lineCount = length . lines
